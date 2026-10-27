@@ -1,0 +1,25 @@
+# ROMs, saves, generated builds
+*.smc
+*.sfc
+*.srm
+*.000
+*.state
+*.state*
+GOLBEZSAVE/
+archive/
+local_webui_output/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+venv/
+.venv/
+FreeEnt/.build/
+.lastseed
+
+# Local editor/OS files
+.DS_Store
+*.swp
+*.sfc.*
+*.smc.*
