@@ -7,8 +7,8 @@
 | Item | Value |
 |---|---|
 | ROM | `golbez_exact_playable.sfc` |
-| SHA-1 | `640e63b5cfbf23439adf33aefaf978687781c295` |
-| SHA-256 | `357b25a5103c08cf9675fa97677647877a93f98daf94988d1e30630062cb153c` |
+| SHA-1 | `a8ae9f5d1a5d8ca4d437c4478c1318352db4f1d0` |
+| SHA-256 | `838dcf0f0ec7fc8c4ff57106d1ea3585172dfd52fc6b45cfa0c8513ce1a633be` |
 | Flags | `Onone Kmain Pnone Crelaxed/only:cecil,golbez/Cstart:golbez Tvanilla Svanilla Bvanilla Evanilla Gnone/-vanilla:fashion` |
 | Quickstart | yes |
 | Verifier | `python3 verify_golbez_lock.py` |
@@ -39,6 +39,7 @@ All addresses are ROM offsets in the generated 2 MB ROM.
 | `working_map_pal_dup.bin` | `0x0680E0` | `0x10` | Duplicate map palette slot |
 | `levelptr_G.bin` | `0x07B524` | `0x02` | Level-up pointer (`67 C2`) |
 | `charitem_G.bin` | `0x079070` | `0x1B90` | Items, equipment, names, char props |
+| `item_name_G.bin` | `0x078276` | `0x09` | Abyss/custom item name text |
 | `spells_G.bin` | `0x07C700` | `0x220` | Learned/initial spell lists |
 | `levelup_G.bin` | `0x07C400` | `0x100` | Level-up area (`FF` = unused) |
 | `stats_G.bin` | `0x07AA80` | `0x20` | Golbez stats |
@@ -114,7 +115,7 @@ Expected:
 ```text
 PASS: reference blobs match LOCKED_MANIFEST.json
 PASS: <rom> contains every locked Golbez region
-PASS: exact reference build sha1 640e63b5cfbf23439adf33aefaf978687781c295
+PASS: exact reference build sha1 a8ae9f5d1a5d8ca4d437c4478c1318352db4f1d0
 ```
 
 ## Change protocol

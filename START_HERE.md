@@ -13,8 +13,8 @@ Golbez fork of FreeEnterprise4.
 
 `golbez_exact_playable.sfc`
 
-- SHA-1: `640e63b5cfbf23439adf33aefaf978687781c295`
-- SHA-256: `357b25a5103c08cf9675fa97677647877a93f98daf94988d1e30630062cb153c`
+- SHA-1: `a8ae9f5d1a5d8ca4d437c4478c1318352db4f1d0`
+- SHA-256: `838dcf0f0ec7fc8c4ff57106d1ea3585172dfd52fc6b45cfa0c8513ce1a633be`
 - Quickstart, playable Golbez.
 
 ## Verify

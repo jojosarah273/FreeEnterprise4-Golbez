@@ -62,6 +62,11 @@
       "address": 502400,
       "size": 32,
       "sha256": "0b1dea9d6fd588a39d1910aafa5e35aee29b6a0945ba67e24dc6c23882da1bdf"
+    },
+    "item_name_G.bin": {
+      "address": 492150,
+      "size": 9,
+      "sha256": "a56bc67068b9a87399d463d54cd0c4921c61db0749f2163a4e5a7a266ef93bf3"
     }
   },
   "locked_vanilla": {

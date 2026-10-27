@@ -924,6 +924,7 @@ def build(romfile, options, force_recompile=False):
             ('working_map_pal_dup.bin', 0x0680E0),
             ('levelptr_G.bin',          0x07B524),
             ('charitem_G.bin',          0x079070),
+            ('item_name_G.bin',         0x078276),
             ('spells_G.bin',            0x07C700),
             ('levelup_G.bin',           0x07C400),
             ('stats_G.bin',             0x07AA80),

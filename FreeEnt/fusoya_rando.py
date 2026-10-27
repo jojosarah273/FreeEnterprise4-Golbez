@@ -185,21 +185,3 @@ def apply(env):
         'spellset(#FusoyaBlack) { initial { ' + ' '.join(initial_black) + ' }\n'
         '    learned {\n        ' + learned_text + '\n    }\n}'
     )
-
-    # Level 30 Golbez stats + growth table.
-    env.add_binary(UnheaderedAddress(0x7AA80), _build_stats_record(), as_script=True)
-    env.add_binary(UnheaderedAddress(0x7C400), _build_levelup_table(), as_script=True)
-    env.add_binary(UnheaderedAddress(0x7B524), [0x6F, 0xC3], as_script=True)
-
-    # Abyss Sword, stored in the dummy custom-weapon item slot 0x46.
-    env.add_script('text(item name $46) {[sword]Abyss}')
-    env.add_binary(UnheaderedAddress(0x79100 + 0x46 * 0x08),
-        [0x80, 200, 99, 0x00, 0x3B, 0x00, 0x10, 0x00], as_script=True)
-    env.add_binary(UnheaderedAddress(0x79070 + 0x46), [0x00], as_script=True)
-    env.add_binary(UnheaderedAddress(0x7D4E0 + 0x46), [0x00], as_script=True)
-    env.add_binary(UnheaderedAddress(0x79E10 + 0x46 * 0x04),
-        [0x1F, 0x04, 0x00, 0x01], as_script=True)
-    # Custom weapon equip table index 0x10: bit 13 = golbez
-    env.add_binary(UnheaderedAddress(0x7A550 + 0x10 * 0x02), [0x00, 0x20], as_script=True)
-    # No elements
-    env.add_binary(UnheaderedAddress(0x7A590 + 0x3B * 0x03), [0x00, 0x00, 0x00], as_script=True)
