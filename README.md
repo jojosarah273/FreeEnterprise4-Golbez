@@ -68,8 +68,8 @@ Key points:
 
 - Exact locked Golbez battle sheet at `0x0D6800` and battle palette at `0x0E7EA0`.
 - Vanilla `CharTileTbl` / `CharAnimPoseTbl`; no `$f077` or special-pose hacks.
-- Verified working field sprite and portrait blocks for the FuSoYa slot.
-- Exact GOLBEZ stats, items, names, and spell lists.
+- Verified working field sprite and portrait blocks for the Golbez slot.
+- Exact Golbez stats, items, names, and spell lists.
 - Build-time guard fails if any locked region changes.
 
 Verify a build with:

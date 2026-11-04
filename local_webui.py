@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 """Local FreeEnterprise/Golbez generator web UI.
 
-No MongoDB, CherryPy, or React required. Serves a small flagset tester and
-runs the normal FreeEnt generator as a subprocess.
+No MongoDB or CherryPy is required. Serves the React flag editor and runs
+the normal FreeEnt generator as a subprocess.
 """
 import html
 import json
+import mimetypes
 import os
 import re
 import subprocess
 import sys
-import tempfile
-import threading
 import time
 import urllib.parse
-import zipfile
-import mimetypes
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
@@ -23,7 +20,6 @@ from flag_picker import controls_html as flag_controls_html
 from flag_picker import _allowed_flags, _sanitize_flags
 
 import jinja2
-import FreeEnt
 
 ROOT = Path(__file__).resolve().parent
 ROM = ROOT / "ff2.smc"
@@ -42,23 +38,6 @@ JINJA = jinja2.Environment(
     autoescape=jinja2.select_autoescape(["html", "xml"]),
 )
 
-def _allowed_flags():
-    text = (ROOT / "FreeEnt" / "flagspec.txt").read_text()
-    return set(re.split(r"[\s/]+", text.strip()))
-
-def _sanitize_flags(flags, allowed):
-    """Drop flags that are not in the current flagspec."""
-    kept = []
-    for token in flags.split():
-        parts = []
-        for part in token.split("/"):
-            if not part:
-                continue
-            if part in allowed or (part.endswith(":*") and any(x.startswith(part[:-1]) for x in allowed)):
-                parts.append(part)
-        if parts:
-            kept.append("/".join(parts))
-    return " ".join(kept)
 
 def _sanitize_category_presets():
     allowed = _allowed_flags()
@@ -93,6 +72,23 @@ def _sanitize_category_presets():
         else:
             output.append(group)
     return output
+
+def _flat_presets():
+    """Return individual presets for the simple fallback picker."""
+    presets = []
+    for group in _sanitize_category_presets():
+        if not isinstance(group, dict):
+            continue
+        if "presets" not in group:
+            continue
+        for item in group.get("presets", []):
+            if not isinstance(item, dict) or "flags" not in item:
+                continue
+            item = dict(item)
+            item["category"] = group.get("category", "")
+            presets.append(item)
+    return presets
+
 
 def page(title, body):
     return f"""<!doctype html>
@@ -161,13 +157,13 @@ class Handler(BaseHTTPRequestHandler):
         body = f"""
 <p>Local flagset tester for the Golbez FreeEnterprise build. Generation uses the normal FreeEnt generator from this repo.</p>
 <p class="muted">Current character flag is <code>Cstart:golbez</code> / <code>only:cecil,golbez</code>. Legacy <code>fusoya</code> flags are not valid in this source version.</p>
-<div class="row"><div><label>Preset (fusoya names are converted to golbez for testing)</label><select id="preset" onchange="pickPreset(this.value)">{''.join(options)}</select></div></div>
+<div class="row"><div><label>Preset (legacy names are converted to Golbez for testing)</label><select id="preset" onchange="pickPreset(this.value)">{''.join(options)}</select></div></div>
 <h2>Pick flags</h2>
 <p class="muted">Only flags present in the current <code>FreeEnt/flagspec.txt</code> are shown. Use the textarea below for manual edits.</p>
 {flag_controls_html()}
 <form method="post" action="/generate">
 <div class="row"><div><label>Flags</label><textarea name="flags">{html.escape(DEFAULT_FLAGS)}</textarea></div></div>
-<div class="row"><div><label>Seed (optional)</label><input name="seed" placeholder="random if empty"></div><div><label><input type="checkbox" name="quickstart" value="1" checked style="width:auto"> Quickstart (skip intro)</label></div></div>
+<div class="row"><div><label>Seed (optional)</label><input name="seed" placeholder="random if empty"></div><div><label><input type="hidden" name="quickstart" value="0"><input type="checkbox" name="quickstart" value="1" checked style="width:auto"> Quickstart (skip intro)</label></div></div>
 <p><button type="submit">Generate ROM</button></p>
 </form>
 <h2>Current Golbez flags</h2>
@@ -234,7 +230,7 @@ window.addEventListener('load', () => setFlags(DEFAULT_FLAGS));
     def _generate(self, form):
         flags = form.get("flags", [""])[0].strip()
         seed = form.get("seed", [""])[0].strip()
-        quickstart = bool(form.get("quickstart")) or True  # local UI builds skip intro by default
+        quickstart = form.get("quickstart", ["1"])[-1] == "1"
         if not flags:
             return self._send(400, page("Error", "<p class='err'>Flags are required.</p><p><a href='/make'>Back</a></p>"))
 
@@ -297,7 +293,7 @@ window.addEventListener('load', () => setFlags(DEFAULT_FLAGS));
         self._generate(form)
 
 def main():
-    Handler.presets = _sanitize_category_presets()
+    Handler.presets = _flat_presets()
     port = int(os.environ.get("LOCAL_WEBUI_PORT", "8099"))
     server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     print(f"Serving Golbez local generator at http://127.0.0.1:{port}/")

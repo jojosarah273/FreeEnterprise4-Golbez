@@ -157,6 +157,7 @@ def controls_html() -> str:
     out.append("</div>")
     return "\n".join(out)
 
+
 def _sanitize_flags(flags: str, allowed: set[str]) -> str:
     """Keep only flags that exist in the current flagspec."""
     kept = []

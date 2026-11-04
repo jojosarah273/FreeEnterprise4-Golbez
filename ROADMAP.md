@@ -10,23 +10,21 @@
 
 The implementation still has FuSoYa-era names in parts of the randomizer. These do not affect the locked graphics/data, but should be cleaned up for a finished Golbez randomizer.
 
-1. Rename `FreeEnt/fusoya_rando.py` to `FreeEnt/golbez_rando.py`; update imports/module lists.
-2. Rename spellset identifiers from FuSoYa to Golbez, or keep numeric IDs and rename only labels consistently.
-3. Fix objective text `Get FuSoYa` → `Get Golbez`.
-4. Remove remaining `fusoya` keys from `character_rando.py`, `dialogue_rando.py`, `custom_weapon_rando.py`, and stale comments.
-5. Update script/event handles:
+1. Fix objective text `Get FuSoYa` → `Get Golbez`.
+2. Remove remaining `fusoya` keys from `character_rando.py`, `dialogue_rando.py`, `custom_weapon_rando.py`, and stale comments.
+3. Update script/event handles:
    - `actor(#Fusoya)` / `%fusoya actor%`
    - `#FusoyaJoined`
    - `AxFusoya`
    - Lunar Palace/opening text
    - remove or convert FuSoYa-only room/challenge content
-6. Update current flags/UI/presets/activity sprites.
-7. Regenerate specs after flag/UI changes:
+4. Update current flags/UI/presets/activity sprites.
+5. Regenerate specs after flag/UI changes:
    ```sh
    cd FreeEnt
    bash compile_all_specs.sh
    ```
-8. Rebuild and verify:
+6. Rebuild and verify:
    ```sh
    python3 verify_golbez_lock.py path/to/generated.sfc
    ```
@@ -34,6 +32,8 @@ The implementation still has FuSoYa-era names in parts of the randomizer. These 
 ## Naming constraint
 
 The playable slot key is `golbezpc_slot`. Do not rename it to `golbez_slot`; that name is already the boss slot (`0x11`).
+
+The spellset identifiers `FusoyaWhite` / `FusoyaBlack` are still used internally. Renaming them changes generated patch ordering and the canonical build hash; do that only alongside a new verified locked baseline.
 
 ## Acceptance criteria
 
