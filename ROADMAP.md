@@ -8,23 +8,28 @@
 
 ## Remaining work: finalize naming
 
-The implementation still has FuSoYa-era names in parts of the randomizer. These do not affect the locked graphics/data, but should be cleaned up for a finished Golbez randomizer.
+The implementation still has some FuSoYa-era names in f4c scripts and internals. These do not affect the locked graphics/data, but should be cleaned up for a finished Golbez randomizer.
 
-1. Fix objective text `Get FuSoYa` → `Get Golbez`.
-2. Remove remaining `fusoya` keys from `character_rando.py`, `dialogue_rando.py`, `custom_weapon_rando.py`, and stale comments.
-3. Update script/event handles:
+Completed so far:
+
+- `fusoya_rando.py` renamed to `golbez_rando.py` (spellset config only; dead data removed).
+- Objective text reads `Get Golbez` (regenerated via `compile_objective_spec.py`).
+- Dead `fusoya` keys removed from `custom_weapon_rando.py`; the Golbez equip-table slot is labeled `golbez`.
+- Locked Golbez data is applied through `FreeEnt/golbez_lock.py`, driven entirely by `golbez_reference/LOCKED_MANIFEST.json`.
+
+1. Update script/event handles:
    - `actor(#Fusoya)` / `%fusoya actor%`
    - `#FusoyaJoined`
    - `AxFusoya`
    - Lunar Palace/opening text
    - remove or convert FuSoYa-only room/challenge content
-4. Update current flags/UI/presets/activity sprites.
-5. Regenerate specs after flag/UI changes:
+2. Update activity sprites and any remaining UI naming.
+3. Regenerate specs after flag/UI changes:
    ```sh
    cd FreeEnt
    bash compile_all_specs.sh
    ```
-6. Rebuild and verify:
+4. Rebuild and verify:
    ```sh
    python3 verify_golbez_lock.py path/to/generated.sfc
    ```

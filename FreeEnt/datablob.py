@@ -56,9 +56,9 @@ class DataBlob:
 
         blob.extend(paddings.pop(0))
         if len(blob) != size:
-            raise Error("Generated data blob length is incorrect")
+            raise RuntimeError("Generated data blob length is incorrect")
         elif paddings:
-            raise Error("Leftover paddings, somehow?")
+            raise RuntimeError("Leftover paddings, somehow?")
 
         for name in self._datas:
             item = self._datas[name]

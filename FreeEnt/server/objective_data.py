@@ -11,7 +11,7 @@ OBJECTIVES = {
     0x09: {'slug' : 'char_porom', 'desc': 'Get Porom'},
     0x0E: {'slug' : 'char_cid', 'desc': 'Get Cid'},
     0x12: {'slug' : 'char_edge', 'desc': 'Get Edge'},
-    0x13: {'slug' : 'char_golbez', 'desc': 'Get FuSoYa'},
+    0x13: {'slug' : 'char_golbez', 'desc': 'Get Golbez'},
     0x20: {'slug' : 'boss_dmist', 'desc': 'Defeat D.Mist'},
     0x21: {'slug' : 'boss_officer', 'desc': 'Defeat Officer'},
     0x22: {'slug' : 'boss_octomamm', 'desc': 'Defeat Octomamm'},

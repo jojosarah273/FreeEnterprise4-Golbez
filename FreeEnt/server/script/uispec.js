@@ -90,7 +90,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O1:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O1:boss_dmist",
@@ -441,7 +441,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O2:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O2:boss_dmist",
@@ -792,7 +792,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O3:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O3:boss_dmist",
@@ -1143,7 +1143,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O4:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O4:boss_dmist",
@@ -1494,7 +1494,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O5:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O5:boss_dmist",
@@ -1845,7 +1845,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O6:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O6:boss_dmist",
@@ -2196,7 +2196,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O7:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O7:boss_dmist",
@@ -2547,7 +2547,7 @@ var FLAG_UISPEC = [
                   },
                   {
                     "flag": "O8:char_golbez",
-                    "title": "Get FuSoYa"
+                    "title": "Get Golbez"
                   },
                   {
                     "flag": "O8:boss_dmist",

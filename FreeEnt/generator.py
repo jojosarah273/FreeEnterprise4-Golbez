@@ -37,6 +37,7 @@ from . import objective_rando
 from . import kit_rando
 from . import custom_weapon_rando
 from . import wacky_rando
+from . import golbez_lock
 
 from . import compile_item_prices
 
@@ -897,52 +898,14 @@ def build(romfile, options, force_recompile=False):
         output_buffer.seek(0)
         rom_data = output_buffer.read()
 
-        root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        # No IPS files are required: the locked reference blobs below
-        # provide the exact battle/map/portrait data for the Golbez slot.
+        # Apply the locked Golbez reference data (single source of truth:
+        # golbez_reference/LOCKED_MANIFEST.json via FreeEnt.golbez_lock).
+        # The battle sheet is a normal 4bpp BattleCharGfx sheet; Golbez uses
+        # the vanilla CharTileTbl and CharAnimPoseTbl (no $f077 hacks).
+        # Locked data is written after all randomizer patches, so it always
+        # wins, and the vanilla regions Golbez depends on are verified.
         rom_mutable = bytearray(rom_data)
-
-        # Apply the locked Golbez reference data.  This is the canonical
-        # implementation for this fork.  The battle sheet is a normal
-        # 4bpp BattleCharGfx sheet; GOLBEZ uses the vanilla CharTileTbl and
-        # CharAnimPoseTbl (no $f077/Golbez-block hacks).
-        ref_dir = os.path.join(root_dir, 'golbez_reference')
-        golbez_blobs = [
-            ('battle_sheet_G.bin',      0x0D6800),
-            ('battle_pal_G.bin',        0x0E7EA0),
-            ('working_map_sheet.bin',   0x0DA700),
-            ('working_portrait.bin',    0x0EE740),
-            ('working_portrait_pal.bin',0x0687A0),
-            ('working_map_pal.bin',     0x068030),
-            ('working_map_pal_dup.bin', 0x0680E0),
-            ('levelptr_G.bin',          0x07B524),
-            ('charitem_G.bin',          0x079070),
-            ('item_name_G.bin',         0x078276),
-            ('spells_G.bin',            0x07C700),
-            ('levelup_G.bin',           0x07C400),
-            ('stats_G.bin',             0x07AA80),
-        ]
-        for ref_name, ref_address in golbez_blobs:
-            with open(os.path.join(ref_dir, ref_name), 'rb') as infile:
-                ref_data = infile.read()
-            rom_mutable[ref_address:ref_address + len(ref_data)] = ref_data
-            if rom_mutable[ref_address:ref_address + len(ref_data)] != ref_data:
-                raise RuntimeError(f"Golbez lock failed: {ref_name} at 0x{ref_address:06X}")
-        rom_mutable[0x0AB307] = 0x03
-
-        # These vanilla regions must remain untouched: GOLBEZ uses the
-        # vanilla CharTileTbl/CharAnimPoseTbl and no $f077/timer hacks.
-        for lock_name, lock_address in [
-            ('locked_tiletable.bin', 0x06F961),
-            ('locked_animtable.bin', 0x09FB81),
-            ('locked_f077.bin', 0x016064),
-            ('locked_phase_gate.bin', 0x01636A),
-            ('locked_phase_timer.bin', 0x01636F),
-        ]:
-            with open(os.path.join(ref_dir, lock_name), 'rb') as infile:
-                lock_data = infile.read()
-            if rom_mutable[lock_address:lock_address + len(lock_data)] != lock_data:
-                raise RuntimeError(f"Golbez lock failed: {lock_name} changed at 0x{lock_address:06X}")
+        golbez_lock.apply(rom_mutable)
 
         rom_data = bytes(rom_mutable)
 

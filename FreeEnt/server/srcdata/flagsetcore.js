@@ -80,7 +80,7 @@ class FlagSetCore {
         for (var i = 0, _pj_a = 3; (i < _pj_a); i += 1) {
             if ((this._embedded_version[i] !== this._flagspec["version"][i])) {
                 embedded_version_string = this._lib.join(function () {
-    var _pj_b = [], _pj_c = embedded_version_string;
+    var _pj_b = [], _pj_c = this._embedded_version;
     for (var _pj_d = 0, _pj_e = _pj_c.length; (_pj_d < _pj_e); _pj_d += 1) {
         var v = _pj_c[_pj_d];
         _pj_b.push(v.toString());

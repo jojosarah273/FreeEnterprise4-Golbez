@@ -96,12 +96,15 @@ Do not hand-edit individual values; replace the whole locked blob only through a
 
 ## Build-time guard
 
-`FreeEnt/generator.py`:
+`FreeEnt/golbez_lock.py` (called by `FreeEnt/generator.py` after all randomizer patches):
 
-1. Writes every locked blob.
-2. Verifies each write.
-3. Verifies the locked vanilla tables/timer bytes.
-4. Raises `RuntimeError` on any mismatch.
+1. Verifies each reference file against its `LOCKED_MANIFEST.json` size and SHA-256.
+2. Writes every locked blob and verifies each write.
+3. Sets `0x0AB307 = 0x03`.
+4. Verifies the locked vanilla tables/timer bytes.
+5. Raises `RuntimeError` on any mismatch.
+
+`golbez_reference/LOCKED_MANIFEST.json` is the single source of truth: no locked address is hardcoded anywhere else. `apply_golbez_reference.py` (ROM repair tool) reads the same manifest.
 
 ## Verification
 

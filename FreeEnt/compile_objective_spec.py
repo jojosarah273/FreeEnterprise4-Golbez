@@ -1,5 +1,4 @@
 import re
-import shutil
 
 CUSTOM_OBJECTIVE_COUNT = 8
 objectives = []
@@ -63,7 +62,6 @@ with open('flagspec.txt', 'r') as infile:
             flagspec_lines.append(line)
         elif not in_section:
             flagspec_lines.append(line)
-shutil.copyfile('flagspec.txt', 'flagspec.txt.backup')
 with open('flagspec.txt', 'w') as outfile:
     outfile.write(''.join(flagspec_lines))
 print("(don't forget to recompile the flagspec!)")

@@ -21,7 +21,7 @@ _CAST_TABLE = {
     'Wall' : 0x0A,
 }
 
-_EQUIP = ['dkcecil', 'kain', 'crydia', 'tellah', 'edward', 'rosa', 'yang', 'palom', 'porom', 'pcecil', 'cid', 'arydia', 'edge', 'fusoya']
+_EQUIP = ['dkcecil', 'kain', 'crydia', 'tellah', 'edward', 'rosa', 'yang', 'palom', 'porom', 'pcecil', 'cid', 'arydia', 'edge', 'golbez']
 _ELEMENTS = ['fire', 'ice', 'lightning', 'dark', 'holy', 'air', 'drain', 'immune', 'poison', 'blind', 'mute', 'piggy', 'mini', 'toad', 'stone', 'swoon', 'calcify1', 'calcify2', 'berserk', 'charm', 'sleep', 'paralyze', 'float', 'curse']
 _RACES = ['dragons', 'robots', 'reptiles', 'spirits', 'giants', 'slimes', 'mages', 'undead']
 
@@ -32,7 +32,6 @@ _PLUS_MINUS_PAIRS = list(zip(_PLUS_STATS, _MINUS_STATS))
 _CHARACTER_TO_USERS = {
     'cecil' : ['dkcecil', 'pcecil'],
     'rydia' : ['crydia', 'arydia'],
-    'fusoya' : ['fusoya'],
 }
 
 def _is_user(cw, character):

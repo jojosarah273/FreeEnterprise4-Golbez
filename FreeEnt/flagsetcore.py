@@ -85,7 +85,7 @@ class FlagSetCore:
         self._embedded_version = byte_list[:3]
         for i in range(3):
             if self._embedded_version[i] != self._flagspec['version'][i]:
-                embedded_version_string = self._lib.join([str(v) for v in embedded_version_string], '.')
+                embedded_version_string = self._lib.join([str(v) for v in self._embedded_version], '.')
                 spec_version_string = self._lib.join([str(v) for v in self._flagspec['version']], '.')
                 raise Exception(f"Version mismatch: flag string is v{embedded_version_string}, expected v{spec_version_string}")
 

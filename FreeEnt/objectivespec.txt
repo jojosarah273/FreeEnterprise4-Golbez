@@ -9,7 +9,7 @@
 09: char_porom                               Get Porom
 0E: char_cid                                 Get Cid
 12: char_edge                                Get Edge
-13: char_golbez                              Get FuSoYa
+13: char_golbez                              Get Golbez
     boss_dmist                               Defeat D.Mist
     boss_officer                             Defeat Officer
     boss_octomamm                            Defeat Octomamm

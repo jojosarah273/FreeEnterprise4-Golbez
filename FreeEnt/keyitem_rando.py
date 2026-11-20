@@ -1,6 +1,6 @@
 from . import databases
 from . import core_rando
-from .rewards import RewardSlot, ItemReward
+from .rewards import RewardSlot
 from .address import *
 
 # vignette time measurements for reference:

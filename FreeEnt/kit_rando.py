@@ -1,5 +1,4 @@
 from . import databases
-import re
 
 
 KIT_SPECS = {
