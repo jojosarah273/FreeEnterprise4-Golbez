@@ -8,6 +8,7 @@ Golbez fork of FreeEnterprise4.
 2. `GOLBEZ_LOCKED_SPEC.md` — authoritative locked graphics/data rules.
 3. `ROADMAP.md` — remaining randomizer naming cleanup.
 4. `LOCAL_WEBUI.md` — local flag tester.
+5. `END_USER_APP_OPTIONS.md` — options for a small end-user app.
 
 ## Canonical build
 

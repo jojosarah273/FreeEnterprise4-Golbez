@@ -84,6 +84,7 @@ python3 verify_golbez_lock.py path/to/generated.sfc
 - `GOLBEZ_LOCKED_SPEC.md` — locked graphics/data specification.
 - `ROADMAP.md` — remaining randomizer naming cleanup.
 - `LOCAL_WEBUI.md` — local web UI usage.
+- `END_USER_APP_OPTIONS.md` — options for shipping a small end-user app around this engine.
 
 ## Credits and license
 
