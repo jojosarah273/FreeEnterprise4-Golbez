@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 REF = ROOT / "golbez_reference"
 MANIFEST = REF / "LOCKED_MANIFEST.json"
-EXPECTED_BUILD_SHA1 = "a8ae9f5d1a5d8ca4d437c4478c1318352db4f1d0"
+EXPECTED_BUILD_SHA1 = "8aa201aac361236ce9e9080c79752b41c6359014"
 
 
 def sha256(data: bytes) -> str:

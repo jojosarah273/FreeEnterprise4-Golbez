@@ -7,8 +7,8 @@
 | Item | Value |
 |---|---|
 | ROM | `golbez_exact_playable.sfc` |
-| SHA-1 | `a8ae9f5d1a5d8ca4d437c4478c1318352db4f1d0` |
-| SHA-256 | `838dcf0f0ec7fc8c4ff57106d1ea3585172dfd52fc6b45cfa0c8513ce1a633be` |
+| SHA-1 | `8aa201aac361236ce9e9080c79752b41c6359014` |
+| SHA-256 | `6e3433d8aa42f0e4b9c40434410c0a403721429f1f6966f14064513c59c16268` |
 | Flags | `Onone Kmain Pnone Crelaxed/only:cecil,golbez/Cstart:golbez Tvanilla Svanilla Bvanilla Evanilla Gnone/-vanilla:fashion` |
 | Quickstart | yes |
 | Verifier | `python3 verify_golbez_lock.py` |
@@ -118,10 +118,15 @@ Expected:
 ```text
 PASS: reference blobs match LOCKED_MANIFEST.json
 PASS: <rom> contains every locked Golbez region
-PASS: exact reference build sha1 a8ae9f5d1a5d8ca4d437c4478c1318352db4f1d0
+PASS: exact reference build sha1 8aa201aac361236ce9e9080c79752b41c6359014
 ```
 
 ## Change protocol
+
+Note: any change to the flag vocabulary (`FreeEnt/flagspec.txt`) changes the
+binary flag layout embedded in every generated ROM, which re-flows the
+shuffled patch area and re-baselines the canonical build hash — even when the
+locked regions themselves are untouched. Text flag strings remain compatible.
 
 If the locked result must change intentionally:
 

@@ -240,6 +240,11 @@
 ...(Tmaxtier:5) Chests contain tier 5 items at best
 ...(Tmaxtier:4)! Chests contain tier 4 items at best
 ...(Tmaxtier:3)! Chests contain tier 3 items at best
+..<> Improve item quality
+...(Tmintier:5) Chests contain tier 5 items at least
+...(Tmintier:4) Chests contain tier 4 items at least
+...(Tmintier:3) Chests contain tier 3 items at least
+...(Tmintier:2) Chests contain tier 2 items at least
 .(Tpro) Pro chest randomization
 ..[ECHO:Tstandard]
 .(Twild) Wild chest randomization
