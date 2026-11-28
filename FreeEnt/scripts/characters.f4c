@@ -247,7 +247,7 @@ patch($218980 bus) {
     /* Rosa2 */     #job.Rosa       FF
     /* ARydia */    #job.CRydia     #job.ARydia
     /* Edge */      #job.Edge       FF
-    /* Golbez */    #job.Golbez     FF
+    /* Golbez */    #job.Fusoya     FF  // actor 0x13 -> playable job 0x0D (locked Golbez field sprite)
     /* Kain3 */     #job.Kain       FF
 }
 

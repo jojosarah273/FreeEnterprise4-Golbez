@@ -65,7 +65,15 @@ def apply(rom_mutable):
     # 2. Map palette selector for the field sprite.
     rom_mutable[MAP_PALETTE_SELECTOR_ADDRESS] = MAP_PALETTE_SELECTOR_VALUE
 
-    # 3. Vanilla regions Golbez depends on must remain untouched.
+    # 3. Small non-blob patches (job menu/spellset and dynamic field sprite).
+    # These tables are outside the locked blobs but are required for Golbez to
+    # behave like the playable character.
+    for name, address, data in patch_list():
+        rom_mutable[address:address + len(data)] = data
+        if rom_mutable[address:address + len(data)] != data:
+            raise RuntimeError(f"Golbez lock failed: patch {name} at 0x{address:06X}")
+
+    # 4. Vanilla regions Golbez depends on must remain untouched.
     for name, meta in manifest['locked_vanilla'].items():
         data = _read_blob(name)
         start = meta['address']
@@ -82,4 +90,13 @@ def blob_list():
     return [
         (name, meta['address'], _verify_blob_file(name, meta))
         for name, meta in manifest['blobs'].items()
+        ]
+
+
+def patch_list():
+    """Return [(name, address, data)] for small non-blob Golbez patches."""
+    manifest = load_manifest()
+    return [
+        (name, meta['address'], bytes(meta['data']))
+        for name, meta in manifest.get('patches', {}).items()
         ]

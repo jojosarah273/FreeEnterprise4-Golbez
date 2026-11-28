@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 REF = ROOT / "golbez_reference"
 MANIFEST = REF / "LOCKED_MANIFEST.json"
-EXPECTED_BUILD_SHA1 = "8aa201aac361236ce9e9080c79752b41c6359014"
+EXPECTED_BUILD_SHA1 = "b85c57cec0259c56ee80f89d386528602752bfe4"
 
 
 def sha256(data: bytes) -> str:
@@ -62,6 +62,13 @@ def check_rom(manifest: dict, rom_path: Path) -> None:
         actual = rom[start:start + len(data)]
         if actual != data:
             fail(f"{rom_path.name}: {name} was changed at 0x{start:06X}")
+
+    for name, meta in manifest.get("patches", {}).items():
+        start = meta["address"]
+        data = bytes(meta["data"])
+        actual = rom[start:start + len(data)]
+        if actual != data:
+            fail(f"{rom_path.name}: Golbez patch {name} differs at 0x{start:06X} (expected {data.hex()}, got {actual.hex()})")
 
     if len(rom) > 0x0AB307 and rom[0x0AB307] != 0x03:
         fail(f"{rom_path.name}: map palette selector 0x0AB307 must be 0x03")

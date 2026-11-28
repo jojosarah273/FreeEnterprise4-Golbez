@@ -7,8 +7,8 @@
 | Item | Value |
 |---|---|
 | ROM | `golbez_exact_playable.sfc` |
-| SHA-1 | `8aa201aac361236ce9e9080c79752b41c6359014` |
-| SHA-256 | `6e3433d8aa42f0e4b9c40434410c0a403721429f1f6966f14064513c59c16268` |
+| SHA-1 | `b85c57cec0259c56ee80f89d386528602752bfe4` |
+| SHA-256 | `b0b0f3a83298db895e9f8b1747d136eefcf4f7643c560d8211d180c5c0ebbe25` |
 | Flags | `Onone Kmain Pnone Crelaxed/only:cecil,golbez/Cstart:golbez Tvanilla Svanilla Bvanilla Evanilla Gnone/-vanilla:fashion` |
 | Quickstart | yes |
 | Verifier | `python3 verify_golbez_lock.py` |
@@ -23,6 +23,7 @@
 6. `0x0AB307` must be `0x03`.
 7. Stats/items/names/spells must use the locked blobs.
 8. Do not recolor, "improve", or regenerate a locked blob without a new verified capture.
+9. Job `0x0D` must have no White links (`0x09FE04 = FF`, `0x0A7FC9 = FF`) and actor `0x13` must map to job `0x0D` (`0x1089A4 = 0D FF`).
 
 ## Locked data regions
 
@@ -49,6 +50,18 @@ Also:
 ```text
 0x0AB307 = 0x03
 ```
+
+## Non-blob Golbez patches
+
+These tables are outside the locked blobs, but are required for Golbez to
+behave correctly. They are applied from `LOCKED_MANIFEST.json` by
+`FreeEnt/golbez_lock.py` and checked by `verify_golbez_lock.py`.
+
+| Name | Address | Data | Purpose |
+|---|---:|---|---|
+| `job_0d_spellset_white` | `0x09FE04` | `FF` | Remove White from playable job `0x0D` |
+| `job_0d_menu_white` | `0x0A7FC9` | `FF` | Remove the menu's White magic entry |
+| `actor_family_golbez` | `0x1089A4` | `0D FF` | Actor `0x13` dynamic field sprite -> job `0x0D` (locked Golbez map sheet) |
 
 ## Locked vanilla regions
 
@@ -118,7 +131,7 @@ Expected:
 ```text
 PASS: reference blobs match LOCKED_MANIFEST.json
 PASS: <rom> contains every locked Golbez region
-PASS: exact reference build sha1 8aa201aac361236ce9e9080c79752b41c6359014
+PASS: exact reference build sha1 b85c57cec0259c56ee80f89d386528602752bfe4
 ```
 
 ## Change protocol
@@ -149,3 +162,5 @@ If the locked result must change intentionally:
 | Only Cecil playable | wrong flags; use `only:cecil,golbez/Cstart:golbez` |
 | Stats/spells/equipment wrong | locked data overridden after generation |
 | Level-up behavior wrong | wrong level pointer/level-up blob |
+| Golbez appears as Mini out of party | actor `0x13` family row points at job `0x0E` (sprite `0x0E` = Mini) instead of `0x0D` |
+| White magic entry remains in menu | job `0x0D` White links not cleared (`0x09FE04` / `0x0A7FC9`) |

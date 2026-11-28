@@ -41,6 +41,10 @@ def apply(input_path: Path, output_path: Path) -> None:
 
     rom[golbez_lock.MAP_PALETTE_SELECTOR_ADDRESS] = golbez_lock.MAP_PALETTE_SELECTOR_VALUE
 
+    for name, address, data in golbez_lock.patch_list():
+        rom[address:address + len(data)] = data
+        print(f"{name:24s} -> 0x{address:06X} ({len(data)} bytes, patch)")
+
     # Verify the result exactly like a fresh build.
     for name, meta in manifest["locked_vanilla"].items():
         data = (ROOT / "golbez_reference" / name).read_bytes()

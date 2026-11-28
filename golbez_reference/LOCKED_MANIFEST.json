@@ -95,5 +95,29 @@
       "size": 3,
       "sha256": "596fd949e98d6be92907e748ff5a26bcecc8b88907e0a5a719152b65bedebf3d"
     }
+  },
+  "patches": {
+    "job_0d_spellset_white": {
+      "address": 654852,
+      "data": [
+        255
+      ],
+      "purpose": "clear job 0x0D white spellset link"
+    },
+    "job_0d_menu_white": {
+      "address": 688073,
+      "data": [
+        255
+      ],
+      "purpose": "remove White from job 0x0D menu"
+    },
+    "actor_family_golbez": {
+      "address": 1083812,
+      "data": [
+        13,
+        255
+      ],
+      "purpose": "actor 0x13 dynamic field sprite -> job 0x0D (locked Golbez sheet)"
+    }
   }
 }
